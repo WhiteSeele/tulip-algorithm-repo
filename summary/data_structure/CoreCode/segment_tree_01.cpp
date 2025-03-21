@@ -4,6 +4,8 @@ using namespace std;
 /*
     线段树（无区间更新）
     327. 区间和的个数 https://leetcode.cn/problems/count-of-range-sum/
+    3479. 将水果转入篮子[线段树 + 二分] https://leetcode.cn/problems/fruits-into-baskets-iii/
+    LC2940[线段树 +二分] https://leetcode.cn/problems/find-building-where-alice-and-bob-can-meet/description/
 */
 
 class SegmentTree {

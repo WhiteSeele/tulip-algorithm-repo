@@ -1,6 +1,63 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+/*
+    二分查找
+    模版：
+    bool check(int x) { ... } // 检查x是否满足某种性质
+
+    // 区间[l, r]被划分成[l, mid]和[mid + 1, r]时使用：
+    int bsearch_1(int l, int r)
+    {
+        while (l < r)
+        {
+            int mid = l + r >> 1;
+            if (check(mid)) r = mid;    // check()判断mid是否满足性质
+            else l = mid + 1;
+        }
+        return l;
+    }
+    // 区间[l, r]被划分成[l, mid - 1]和[mid, r]时使用：
+    int bsearch_2(int l, int r)
+    {
+        while (l < r)
+        {
+            int mid = l + r + 1 >> 1;
+            if (check(mid)) l = mid;
+            else r = mid - 1;
+        }
+        return l;
+    }
+
+    二分答案
+    //求最小： 题目求什么就二分什么，使用模板1
+    //求最大： 使用模板2
+    LC2861 https://leetcode.cn/problems/maximum-number-of-alloys/
+    LC2258 https://leetcode.cn/problems/escape-the-spreading-fire/
+
+    //最小化最大值: 本质是二分答案求最小
+    LC410 https://leetcode.cn/problems/split-array-largest-sum/
+    LC1760 https://leetcode.cn/problems/minimum-limit-of-balls-in-a-bag/
+    LC2439 https://leetcode.cn/problems/minimize-maximum-of-array/
+    LC3419 https://leetcode.cn/problems/minimize-the-maximum-edge-weight-of-graph/
+
+    //最大化最小值: 本质是二分答案求最大
+    LC2571 https://leetcode.cn/problems/maximum-tastiness-of-candy-basket/
+    LC1552[同2571] https://leetcode.cn/problems/magnetic-force-between-two-balls/
+
+    //第 k 小/大
+        第 k 小等价于: 求最小的 x，满足 <= x 的数至少有 k 个
+        第 k 大等价于: 求最大的 x，满足 >= x 的数至少有 k 个
+        一般规定 k 从 1 开始并像数组下标那样从 0 开始
+        部分题目也可以用堆解决
+    LC878 https://leetcode.cn/problems/nth-magical-number/
+    LC1439 https://leetcode.cn/problems/find-the-kth-smallest-sum-of-a-matrix-with-sorted-rows/
+    LC786 https://leetcode.cn/problems/k-th-smallest-prime-fraction/
+
+    二分答案的难点通常在于 check 函数的写法，通常与贪心等其他算法关联
+*/
+
+
 /*----------------------------------------------------------------------------*/
 /*
     滑动窗口
@@ -15,6 +72,9 @@ using namespace std;
     LC2156 https://leetcode.cn/problems/find-substring-with-given-hash-value/
     LC2653 https://leetcode.cn/problems/sliding-subarray-beauty/
     LC1297 https://leetcode.cn/problems/maximum-number-of-occurrences-of-a-substring/
+
+    进阶题：
+    LC220【定长滑窗 + 有序集合】. https://leetcode.cn/problems/contains-duplicate-iii/description/
 */
 
 //不定长滑动窗口
@@ -30,6 +90,30 @@ using namespace std;
     一般题目都有 至少 的要求
     LC76 https://leetcode.cn/problems/minimum-window-substring/
     LC1234 https://leetcode.cn/problems/replace-the-substring-for-balanced-string/
+    class Solution {
+    public:
+        int balancedString(string s) {
+            int n = s.length();
+
+            int ans = n;
+            unordered_map<char, int> mp{{'Q', 0}, {'W', 0}, {'E', 0}, {'R', 0}};
+
+            for (auto c : s)
+                mp[c]++;
+        
+            if(mp['Q'] * 4 == n && mp['W'] * 4 == n && mp['E'] * 4 == n && mp['R'] * 4 == n) return 0;
+
+            for (int left = 0, right = 0; right < n; right++) {
+                mp[s[right]] -- ;
+                while (mp['Q'] * 4 <= n && mp['W'] * 4 <= n &&
+                   mp['E'] * 4 <= n && mp['R'] * 4 <= n) {
+                    ans = min(ans, right - left + 1);
+                    mp[s[left ++ ]] ++ ;
+                }
+            }
+            return ans;
+        }
+    };
 
     求子数组个数
 
