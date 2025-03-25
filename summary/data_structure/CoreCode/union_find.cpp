@@ -3,3 +3,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+/*
+    并查集模板
+    
+*/
