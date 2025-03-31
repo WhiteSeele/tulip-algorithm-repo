@@ -3,18 +3,38 @@ using namespace std;
 
 
 
-/*------------------------------------------------------------------------------------------------------------------------*/
-
+/*-------------------------------------------划分型 DP------------------------------------------------------------------*/
 /*
-    前后缀分解: 考虑以nums[i]为分界线，nums[0:i-1] 和 nums[i+1:] 的情况
-    LC2680[前后缀分解 + 贪心] https://leetcode.cn/problems/maximum-or/description/
-    LC2012 https://leetcode.cn/problems/sum-of-beauty-in-the-array/
+    划分型 DP
+    1. 判定能否划分
+    状态定义：f[i] 表示长为 i 的前缀 a[:i] 能否划分
+    枚举最后一个子数组的左端点 L，从 f[L] 转移到 f[i]，并考虑 a[L:i] 是否符合要求
+    例题：
+    LC139 https://leetcode.cn/problems/word-break/description/
+    LC2369 https://leetcode.cn/problems/check-if-there-is-a-valid-partition-for-the-array/description/
 
+    2. 最优划分
+    计算最少 / 最多可以划分出多少段，最优划分得分等
+    状态定义：f[i] 表示长为 i 的前缀 a[:i] 在约束条件下分割出的最少（最多）子数组个数（分割方案数）
+    枚举最后一个子数组的左端点 L，从 f[L] 转移到 f[i]，并考虑 a[L:i] 对最优解的影响
+    例题：
+    LC132 https://leetcode.cn/problems/palindrome-partitioning-ii/description/
+    LC2430 https://leetcode.cn/problems/maximum-deletions-on-a-string/
+
+    3. 约束划分个数
+    将数组分成（至少 / 恰好 / 至多）k 个连续子数组，计算与这些子数组有关的最优值
+    状态定义：f[i][j] 表示将长为 j 的前缀 a[:j] 分成 i 个连续子数组所得到的最优解
+    枚举最后一个子数组的左端点 L ，从 f[i - 1][L] 转移到 f[i][j]，并考虑 a[L:j] 对子数组的影响
+    例题：
+    LC410 https://leetcode.cn/problems/split-array-largest-sum/
+    LC1745 https://leetcode.cn/problems/palindrome-partitioning-iv/
+    LC3505 https://leetcode.cn/problems/minimum-operations-to-make-elements-within-k-subarrays-equal/description/
 */
 
 
 
-/* ---------------------------------------------------------------------------------------------------------------------- */
+
+/* ---------------------------------------------数位DP------------------------------------------------------------------*/
 /*
     数位DP
     模版v1.0：https://www.bilibili.com/video/BV1rS4y1s721/?t=19m36s&vd_source=23e0bd55bd02390a9b07e67223434fa4
@@ -121,5 +141,13 @@ class Solution {
         }
     };
 
-/* ---------------------------------------------------------------------------------------------------------------------- */
+
+
+/* -----------------------------------------------前后缀分解------------------------------------------------------------------- */
+/*
+    前后缀分解: 考虑以nums[i]为分界线，nums[0:i-1] 和 nums[i+1:] 的情况
+    LC2680[前后缀分解 + 贪心] https://leetcode.cn/problems/maximum-or/description/
+    LC2012 https://leetcode.cn/problems/sum-of-beauty-in-the-array/
+    LC2712 https://leetcode.cn/problems/minimum-cost-to-make-all-characters-equal/?envType=daily-question&envId=2025-03-27
+*/
 
