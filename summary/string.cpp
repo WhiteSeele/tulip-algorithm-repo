@@ -2,6 +2,7 @@
 
 //回文串
 /*
+    LC647 https://leetcode.cn/problems/palindromic-substrings/description/
     区间DP: 
     class Solution {
 public:
