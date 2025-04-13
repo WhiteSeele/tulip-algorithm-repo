@@ -2,6 +2,15 @@
 using namespace std;
 
 
+/*---------------------------最长公共子序列-------------------------------------------*/
+/*
+    母题：LC1143 https://leetcode.cn/problems/longest-common-subsequence/description/
+    状态定义：f[i][j] 表示 s[0:i-1] 和t[0:j-1] 中最长公共子序列长度
+    例题：
+    LC1639【变形求方案数】 https://leetcode.cn/problems/number-of-ways-to-form-a-target-string-given-a-dictionary/description/
+    
+*/
+
 
 /*-------------------------------------------划分型 DP------------------------------------------------------------------*/
 /*
@@ -41,10 +50,46 @@ using namespace std;
     模版v2.0：https://leetcode.cn/problems/count-the-number-of-powerful-integers/solutions/2595149/shu-wei-dp-shang-xia-jie-mo-ban-fu-ti-da-h6ci/
     
     Problems：
+    十进制下的数位 DP: 
+    LC233  https://leetcode.cn/problems/number-of-digit-one/
+    LC2801 https://leetcode.cn/problems/count-stepping-numbers-in-range/description/
     LC3490 https://leetcode.cn/problems/count-beautiful-numbers/
     LC2999 https://leetcode.cn/problems/count-the-number-of-powerful-integers/solutions/2595149/shu-wei-dp-shang-xia-jie-mo-ban-fu-ti-da-h6ci/
     LC2827 https://leetcode.cn/problems/number-of-beautiful-integers-in-the-range/
     LC2376 https://leetcode.cn/problems/count-special-integers/description/
+
+    二进制下的数位 DP: 
+    LC600 https://leetcode.cn/problems/non-negative-integers-without-consecutive-ones/
+        需要注意此题的枚举顺序，因为数位 DP 只能从高位向低位枚举，这样才能知道是否被约束
+        而二进制的取位运算通常是右移，例如 n >> i，这样相当于是右边开始才是最高位，因此在二进制数位 DP 中需要倒序枚举才正确。
+        int findIntegers(int n) {
+            int m = bit_width((unsigned) n) - 1; //n的最高位数
+            vector memo(m + 1, vector<int>(2, -1));
+
+            auto dfs = [&](this auto&& dfs, int i, int pre, bool limit) -> int {
+                if(i < 0) {
+                    return 1;
+                }
+                if(!limit && memo[i][pre] != -1) {
+                    return memo[i][pre];
+                }
+                int hi = limit ? n >> i & 1: 1;
+                int res = dfs(i - 1, 0, limit && hi == 0); //填0
+                if(!pre && hi == 1) {
+                    res += dfs(i - 1, 1, limit);  //填1
+                }
+                if(!limit) {
+                    memo[i][pre] = res;
+                }
+                return res;
+            };
+
+            return dfs(m, 0, true);  //从高位开始
+        }
+    
+    K (2 <= K <= 10)进制下的数位 DP：
+    可能结合高精度算法将给定进制数转化为 K 进制数：
+    LC3519 https://leetcode.cn/problems/count-numbers-with-non-decreasing-digits/description/
 */
 
 //模板题: LC2999 https://leetcode.cn/problems/count-the-number-of-powerful-integers/
