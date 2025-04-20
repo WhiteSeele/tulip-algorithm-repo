@@ -7,6 +7,7 @@ using namespace std;
 /*
     数组全部变为相同元素所需要的最小操作次数在数组元素全部变为中位数时取到
     LC462 https://leetcode.cn/problems/minimum-moves-to-equal-array-elements-ii/
+    LC2448[cost 看成元素重复出现的次数] https://leetcode.cn/problems/minimum-cost-to-make-array-equal/description/
 */
 
 

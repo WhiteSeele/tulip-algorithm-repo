@@ -9,7 +9,8 @@ using namespace std;
     https://leetcode.cn/problems/range-sum-query-mutable/solutions/2524481/dai-ni-fa-ming-shu-zhuang-shu-zu-fu-shu-lyfll/
 
     例题：
-    LC3515【差分树状数组】 https://leetcode.cn/problems/shortest-path-in-a-weighted-tree/description/
+    LC3515【差分树状数组】https://leetcode.cn/problems/shortest-path-in-a-weighted-tree/description/
+    LC2179【值域树状数组】https://leetcode.cn/problems/count-good-triplets-in-an-array/description/
 */
 
 //树状数组模板：
